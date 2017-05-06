@@ -13,6 +13,7 @@
 		B6C80F211EBD915000E0C6A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F1F1EBD915000E0C6A0 /* Main.storyboard */; };
 		B6C80F231EBD915000E0C6A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F221EBD915000E0C6A0 /* Assets.xcassets */; };
 		B6C80F261EBD915000E0C6A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F241EBD915000E0C6A0 /* LaunchScreen.storyboard */; };
+		B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B6C80F221EBD915000E0C6A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6C80F251EBD915000E0C6A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6C80F271EBD915000E0C6A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				B6C80F151EBD915000E0C6A0 /* AppDelegate.swift */,
+				B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */,
 				B6C80F1B1EBD915000E0C6A0 /* GameScene.swift */,
 				B6C80F1D1EBD915000E0C6A0 /* GameViewController.swift */,
 				B6C80F1F1EBD915000E0C6A0 /* Main.storyboard */,
@@ -143,6 +146,7 @@
 				B6C80F1C1EBD915000E0C6A0 /* GameScene.swift in Sources */,
 				B6C80F1E1EBD915000E0C6A0 /* GameViewController.swift in Sources */,
 				B6C80F161EBD915000E0C6A0 /* AppDelegate.swift in Sources */,
+				B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
