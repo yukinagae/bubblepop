@@ -11,7 +11,7 @@ import SpriteKit
 class Bubble: SKSpriteNode {
 
     init() {
-        let texture = SKTexture(imageNamed: "Bubble")
+        let texture = SKTexture(imageNamed: "red")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.isUserInteractionEnabled = true
     }
