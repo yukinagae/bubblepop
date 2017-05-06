@@ -51,6 +51,10 @@ class ResultScene: SKScene {
         let touchedNode = self.atPoint(location)
 
         if touchedNode.name == "ReStart" {
+
+            // TODO
+            score = 0
+
             let newScene = GameScene(size: self.scene!.size)
             newScene.scaleMode = .aspectFill
             self.view?.presentScene(newScene)
