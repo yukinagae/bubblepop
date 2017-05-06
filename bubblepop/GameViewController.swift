@@ -3,12 +3,14 @@
 //  bubblepop
 //
 //  Created by Yuki Nagae on 2017/05/06.
-//  Copyright © 2017年 Yuki Nagae. All rights reserved.
+//  Copyright © 2017 Yuki Nagae. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
 import GameplayKit
+
+weak var scoreLabel: UILabel!
 
 class GameViewController: UIViewController {
 
@@ -16,7 +18,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let scene = GameScene(size: view.bounds.size)
+            let scene = TitleScene(size: view.bounds.size)
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
                 
@@ -46,7 +48,7 @@ class GameViewController: UIViewController {
 //        // Release any cached data, images, etc that aren't in use.
 //    }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
 }

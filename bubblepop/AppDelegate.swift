@@ -3,7 +3,7 @@
 //  bubblepop
 //
 //  Created by Yuki Nagae on 2017/05/06.
-//  Copyright © 2017年 Yuki Nagae. All rights reserved.
+//  Copyright © 2017 Yuki Nagae. All rights reserved.
 //
 
 import UIKit

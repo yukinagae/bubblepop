@@ -23,7 +23,10 @@ class Bubble: SKSpriteNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touch :)")
 
-        let actionWait = SKAction.wait(forDuration: 0.5)
+        score += 1
+        print("\(score) total points")
+
+        let actionWait = SKAction.wait(forDuration: 0.2)
         let actionDone = SKAction.removeFromParent()
         self.run(SKAction.sequence([actionWait, actionDone]))
     }
