@@ -14,7 +14,7 @@ class GameScene: SKScene {
 
     var counter = 10
 
-    let counterLabel = SKLabelNode(fontNamed:"Chalkduster")
+    let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
 
     override func didMove(to view: SKView) {
 
@@ -48,7 +48,7 @@ class GameScene: SKScene {
     func updateCounter() {
         if counter >= 0 {
             print("\(counter) seconds to the end of the world")
-            self.counterLabel.text = counter.description
+            self.timerLabel.text = counter.description
             counter -= 1
         } else {
             // after the end of the world
