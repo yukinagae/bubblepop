@@ -29,6 +29,11 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+
+        // settings
+        // TODO can be modified in settings controller
+        UserDefaults.standard.set(3, forKey: "GameTime")
+        UserDefaults.standard.set(5, forKey: "MaxBubbles")
     }
 
 //    override var shouldAutorotate: Bool {

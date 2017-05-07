@@ -8,10 +8,20 @@
 
 import SpriteKit
 
+protocol BubbleTouchedDelegate : class {
+
+    func onTouch(color: ColorType) -> Void
+}
+
 class Bubble: SKSpriteNode {
 
-    init() {
-        let texture = SKTexture(imageNamed: "red")
+    weak var delegate: BubbleTouchedDelegate?
+
+    let myColor: ColorType
+
+    init(color: ColorType) {
+        self.myColor = color
+        let texture = SKTexture(imageNamed: color.name)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.isUserInteractionEnabled = true
     }
@@ -21,13 +31,9 @@ class Bubble: SKSpriteNode {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("Touch :)")
-
-        score += 1
-        print("\(score) total points")
-
-        let actionWait = SKAction.wait(forDuration: 0.2)
+        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
         let actionDone = SKAction.removeFromParent()
-        self.run(SKAction.sequence([actionWait, actionDone]))
+        self.run(SKAction.sequence([actionFadeOut, actionDone]))
+        self.delegate?.onTouch(color: myColor) // TODO delegate with color
     }
 }

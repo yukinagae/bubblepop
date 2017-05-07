@@ -8,19 +8,20 @@
 
 import SpriteKit
 
-struct PhysicsCategory {
-    static let None      : UInt32 = 0
-    static let All       : UInt32 = UInt32.max
-    static let Bubble   : UInt32 = 0b1       // 1
-}
-
 var score = 0
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
-    var counter = 10
+    var counter = UserDefaults.standard.integer(forKey: "GameTime")
 
     let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
+    let scoreLabel = SKLabelNode(fontNamed: "Copperplate")
+
+    func onTouch(color: ColorType) {
+        // TODO debug
+        score += color.point
+        scoreLabel.text = score.description
+    }
 
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -39,6 +40,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         timerLabel.position = CGPoint(x: self.size.width/2, y: 30);
         self.addChild(timerLabel)
 
+        // score
+        scoreLabel.text = score.description
+        scoreLabel.fontSize = 48;
+        scoreLabel.fontColor = SKColor.black
+        scoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        self.addChild(scoreLabel)
+
         self.backgroundColor = SKColor.white
 
         // frame
@@ -46,11 +54,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         borderBody.friction = 0
         self.physicsBody = borderBody
 
-        // TODO how many bubbles?
-        (1...3).map {
-            iteration in
-            delay(Double(iteration)) {
-                self.addBubble(point: CGPoint(x: self.size.width/2, y: self.size.height))
+        // max bubbles
+        let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
+        for i in 1...maxBubbles {
+            delay(Double(i)) {
+                let color = i % 2 == 0 ? ColorEnum.Red : ColorEnum.Green
+                self.addBubble(point: CGPoint(x: self.size.width/2, y: self.size.height), color: color)
             }
         }
     }
@@ -60,14 +69,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 
-    override func sceneDidLoad() {
-        super.sceneDidLoad()
+//    override func sceneDidLoad() {
+//        super.sceneDidLoad()
+//
+//        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+//    }
 
-        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-    }
-
-    func addBubble(point: CGPoint) {
-        let bubble = Bubble()
+    func addBubble(point: CGPoint, color: ColorType) {
+        let bubble = Bubble(color: color)
         bubble.position = point
         self.addChild(bubble)
 
@@ -76,16 +85,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bubble.physicsBody?.allowsRotation = false
         bubble.physicsBody?.isDynamic = true
         bubble.physicsBody?.friction = 0
-        bubble.physicsBody?.restitution = 1
+        bubble.physicsBody?.restitution = 0.3
         bubble.physicsBody?.linearDamping = 0
         bubble.physicsBody?.angularDamping = 0
 
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -1.0)
         bubble.physicsBody!.applyImpulse(CGVector(dx: 2.0, dy: -2.0))
+
+        // delegate
+        bubble.delegate = self
     }
 
     func updateCounter() {
         if counter >= 0 {
+            // TODO debug
             print("\(counter) seconds to the end of the world")
             self.timerLabel.text = counter.description
             counter -= 1
