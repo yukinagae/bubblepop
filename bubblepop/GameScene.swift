@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-var score = 0
+var score = 0.0
 
 class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
@@ -17,10 +17,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
     let scoreLabel = SKLabelNode(fontNamed: "Copperplate")
 
+    var previousColor: ColorType?
+
     func onTouch(color: ColorType) {
-        // TODO debug
-        score += color.point
+
+        if let pColor = previousColor {
+            if pColor.name == color.name {
+                score += color.point * 1.5
+            }
+        } else {
+            score += color.point
+        }
+
+        // update score label text
         scoreLabel.text = score.description
+
+        // update previous color
+        self.previousColor = color
     }
 
     func random() -> CGFloat {
@@ -71,7 +84,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     override func sceneDidLoad() {
         super.sceneDidLoad()
-
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }
 
