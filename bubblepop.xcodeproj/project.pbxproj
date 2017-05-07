@@ -14,7 +14,6 @@
 		B6C80F231EBD915000E0C6A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F221EBD915000E0C6A0 /* Assets.xcassets */; };
 		B6C80F261EBD915000E0C6A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F241EBD915000E0C6A0 /* LaunchScreen.storyboard */; };
 		B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */; };
-		B6C80F301EBDB03D00E0C6A0 /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F2F1EBDB03D00E0C6A0 /* TitleScene.swift */; };
 		B6C80F321EBDB9F600E0C6A0 /* ResultScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F311EBDB9F600E0C6A0 /* ResultScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		B6C80F251EBD915000E0C6A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6C80F271EBD915000E0C6A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
-		B6C80F2F1EBDB03D00E0C6A0 /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		B6C80F311EBDB9F600E0C6A0 /* ResultScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +62,6 @@
 			children = (
 				B6C80F151EBD915000E0C6A0 /* AppDelegate.swift */,
 				B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */,
-				B6C80F2F1EBDB03D00E0C6A0 /* TitleScene.swift */,
 				B6C80F1B1EBD915000E0C6A0 /* GameScene.swift */,
 				B6C80F311EBDB9F600E0C6A0 /* ResultScene.swift */,
 				B6C80F1D1EBD915000E0C6A0 /* GameViewController.swift */,
@@ -154,7 +151,6 @@
 				B6C80F1E1EBD915000E0C6A0 /* GameViewController.swift in Sources */,
 				B6C80F161EBD915000E0C6A0 /* AppDelegate.swift in Sources */,
 				B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */,
-				B6C80F301EBDB03D00E0C6A0 /* TitleScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +316,7 @@
 				B6C80F2C1EBD915000E0C6A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
