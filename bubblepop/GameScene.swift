@@ -69,11 +69,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 
-//    override func sceneDidLoad() {
-//        super.sceneDidLoad()
-//
-//        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-//    }
+    override func sceneDidLoad() {
+        super.sceneDidLoad()
+
+        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
 
     func addBubble(point: CGPoint, color: ColorType) {
         let bubble = Bubble(color: color)
@@ -98,8 +98,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     func updateCounter() {
         if counter >= 0 {
-            // TODO debug
-            print("\(counter) seconds to the end of the world")
             self.timerLabel.text = counter.description
             counter -= 1
         } else {
