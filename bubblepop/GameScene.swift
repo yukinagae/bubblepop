@@ -21,11 +21,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     var totalBubbles = 0
 
+    // delegated method from bubble
     func onTouch(color: ColorType) {
 
         if let pColor = previousColor {
             if pColor.name == color.name {
                 score += color.point * 1.5
+            } else {
+                score += color.point
             }
         } else {
             score += color.point
@@ -42,14 +45,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         // decrement total bubble count
         self.totalBubbles -= 1
-    }
-
-    func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
-
-    func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (max - min) + min
     }
 
     override func didMove(to view: SKView) {
@@ -94,17 +89,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 //        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
 //    }
 
+    func random() -> UInt32 {
+        return arc4random_uniform(100) // 0...99
+    }
+
+    func getRandomColor() -> ColorType {
+        let r = self.random()
+
+        // TODO debug
+        print("random value: \(r)")
+
+        if r < ColorEnum.Red.probability {
+            return ColorEnum.Red
+        } else if r < ColorEnum.Pink.probability {
+            return ColorEnum.Pink
+        } else if r < ColorEnum.Green.probability {
+            return ColorEnum.Green
+        } else if r < ColorEnum.Blue.probability {
+            return ColorEnum.Blue
+        } else {
+            return ColorEnum.Black
+        }
+    }
+
     // add bubble
     func addBubble() {
 
+        // do nothing when already maximum bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
         if self.totalBubbles >= maxBubbles {
             return
         }
 
+        // 1 second delay
         delay(1) {
 
-            let bubble = Bubble(color: ColorEnum.Red) // TODO
+            let color = self.getRandomColor()
+            let bubble = Bubble(color: color)
             let point = CGPoint(x: self.size.width/2, y: self.size.height)
             bubble.position = point
             self.addChild(bubble)
@@ -113,9 +134,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             bubble.physicsBody = SKPhysicsBody(circleOfRadius: max(bubble.size.width / 2, bubble.size.height / 2))
             bubble.physicsBody?.allowsRotation = false
             bubble.physicsBody?.isDynamic = true
-            bubble.physicsBody?.friction = 0
-            bubble.physicsBody?.restitution = 0.5
-            bubble.physicsBody?.linearDamping = 0
+            bubble.physicsBody?.friction = 0.5
+            bubble.physicsBody?.restitution = 1
+            bubble.physicsBody?.linearDamping = 1
             bubble.physicsBody?.angularDamping = 0
 
             self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -1.0)
@@ -127,8 +148,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             // increment total bubble count
             self.totalBubbles += 1
 
-            // TODO
-            print(self.totalBubbles)
+            // TODO debug
+            print("total bubble: \(self.totalBubbles)")
         }
     }
 
