@@ -7,9 +7,9 @@
 //
 
 struct ColorType {
-    var name       : String // name (should be equal to image name)
-    var point      : Double    // points
-    var probability: Double    // %
+    var name        : String // name (should be equal to image name)
+    var point       : Double    // points
+    var probability : Double    // %
 }
 
 enum ColorEnum {

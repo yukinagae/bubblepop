@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
         // settings
         // TODO can be modified in settings controller
         UserDefaults.standard.set(3, forKey: "GameTime")
-        UserDefaults.standard.set(5, forKey: "MaxBubbles")
+        UserDefaults.standard.set(15, forKey: "MaxBubbles")
     }
 
 //    override var shouldAutorotate: Bool {

@@ -34,6 +34,8 @@ class Bubble: SKSpriteNode {
         let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
         let actionDone = SKAction.removeFromParent()
         self.run(SKAction.sequence([actionFadeOut, actionDone]))
+
+        // delegate
         self.delegate?.onTouch(color: myColor)
     }
 }
