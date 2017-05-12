@@ -39,6 +39,15 @@ class ResultScene: SKScene {
         scoreLabel.position = CGPoint(x: self.size.width/2, y: 300)
         scoreLabel.name = "Score"
         self.addChild(scoreLabel)
+
+        // back to home
+        let backLabel = SKLabelNode(fontNamed: "Copperplate")
+        backLabel.text = "Back to Home"
+        backLabel.fontSize = 36
+        backLabel.fontColor = SKColor.black
+        backLabel.position = CGPoint(x: self.size.width/2, y: 100)
+        backLabel.name = "Back"
+        self.addChild(startLabel)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -58,6 +67,14 @@ class ResultScene: SKScene {
             let newScene = GameScene(size: self.scene!.size)
             newScene.scaleMode = .aspectFill
             self.view?.presentScene(newScene)
+        }
+
+        if touchedNode.name == "Back" {
+
+            // TODO
+            score = 0
+
+            self.delegate?.launchViewController()
         }
     }
 }

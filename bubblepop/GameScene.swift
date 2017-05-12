@@ -209,6 +209,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         } else {
             // after the end of the world
             let newScene = ResultScene(size: self.scene!.size)
+            newScene.delegate = self.delegate
             newScene.scaleMode = .aspectFill
             self.view?.presentScene(newScene)
         }

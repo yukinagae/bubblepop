@@ -12,15 +12,15 @@ import GameplayKit
 
 weak var scoreLabel: UILabel!
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, ResultSceneDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // settings
         // TODO can be modified in settings controller
-        UserDefaults.standard.set(10, forKey: "GameTime")
-        UserDefaults.standard.set(15, forKey: "MaxBubbles")
+//        UserDefaults.standard.set(10, forKey: "GameTime")
+//        UserDefaults.standard.set(15, forKey: "MaxBubbles")
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
@@ -34,6 +34,12 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    }
+
+    func launchViewController() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
+        self.present(vc, animated: true, completion: nil)
     }
 
 //    override var shouldAutorotate: Bool {
