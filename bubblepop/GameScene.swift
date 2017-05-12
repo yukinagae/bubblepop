@@ -177,6 +177,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 let color = self.getRandomColor()
                 let bubble = Bubble(color: color)
 
+                // size
+                bubble.size = CGSize(width: bubble.size.width/1.5, height: bubble.size.height/1.5)
+
                 // TODO should be random x
                 let w: UInt32 = UInt32(self.size.width)
                 let h: UInt32 = UInt32(self.size.height)
@@ -198,7 +201,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 //                bubble.physicsBody?.categoryBitMask = BubbleCategory
 
                 self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-                bubble.physicsBody!.applyImpulse(CGVector(dx: 30, dy: -30.0))
+                bubble.physicsBody!.applyImpulse(CGVector(dx: 10, dy: -10.0))
 
                 // delegate
                 bubble.delegate = self
