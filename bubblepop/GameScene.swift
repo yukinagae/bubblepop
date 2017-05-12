@@ -66,8 +66,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         // decrement total bubble count
 //        synced(self.totalBubbles) {
-//            self.totalBubbles.decrement()
-//            self.addBubble()
+            self.totalBubbles.decrement()
+            self.addBubble()
 //        }
     }
 
@@ -97,26 +97,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         self.backgroundColor = SKColor.white
 
-        // frame
-//        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-//        borderBody.friction = 0
-//        self.physicsBody = borderBody
+//         frame
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        borderBody.friction = 0
+        self.physicsBody = borderBody
 //        self.physicsBody?.categoryBitMask = BorderCategory
 
-//        physicsWorld.contactDelegate = self
-
-        // grass
-//        let grass = SKSpriteNode(imageNamed: "grass")
-//        grass.position = CGPoint(x: self.size.width/2, y: grass.size.height/2)
-//        grass.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: grass.size.width, height: grass.size.height))
-//        grass.physicsBody?.isDynamic = false
-//        grass.physicsBody?.friction = 0
-//        grass.physicsBody?.restitution = 0
-//        grass.physicsBody?.categoryBitMask = GrassCategory
-//        self.addChild(grass)
+        physicsWorld.contactDelegate = self
 
         // max bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
+        print(maxBubbles)
         for _ in 1...maxBubbles {
             self.queue.sync {
                 self.addBubble()
@@ -124,46 +115,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         }
     }
 
-//    func didBegin(_ contact: SKPhysicsContact) {
-//        // 1
-//        var firstBody: SKPhysicsBody
-//        var secondBody: SKPhysicsBody
-//        // 2
-//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-//            firstBody = contact.bodyA
-//            secondBody = contact.bodyB
-//        } else {
-//            firstBody = contact.bodyB
-//            secondBody = contact.bodyA
-//        }
-//        // 3
-//        if firstBody.categoryBitMask == BubbleCategory && secondBody.categoryBitMask == BorderCategory {
-//            // TODO debug
-//            print("Hit grass. First contact has been made.")
-//            if let bubble = firstBody.node as! Bubble? {
-//                bubble.disappear()
-//            }
-//        }
+    // TODO may be better to use timer
+//    func delay(_ delay:Double, closure:@escaping ()->()) {
+//        DispatchQueue.main.asyncAfter(
+//            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 //    }
 
-    // TODO may be better to use timer
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-    }
-
-    func synced(_ lock: Any, closure: () -> ()) {
-        objc_sync_enter(lock)
-        closure()
-        objc_sync_exit(lock)
-    }
+//    func synced(_ lock: Any, closure: () -> ()) {
+//        objc_sync_enter(lock)
+//        closure()
+//        objc_sync_exit(lock)
+//    }
 
 
 // TODO uncomment later
-//    override func sceneDidLoad() {
-//        super.sceneDidLoad()
-//        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-//    }
+    override func sceneDidLoad() {
+        super.sceneDidLoad()
+        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
 
     func random(max: UInt32) -> UInt32 {
         return arc4random_uniform(max)
@@ -194,7 +163,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // do nothing when already maximum bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
 
-//        queue.sync {
             print(maxBubbles)
             print(self.totalBubbles.value)
 
@@ -218,25 +186,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 bubble.physicsBody = SKPhysicsBody(circleOfRadius: max(bubble.size.width / 2, bubble.size.height / 2))
                 bubble.physicsBody?.allowsRotation = false
                 bubble.physicsBody?.isDynamic = true
-                bubble.physicsBody?.friction = 0.5
-                bubble.physicsBody?.restitution = 0
-                bubble.physicsBody?.linearDamping = 1
+                bubble.physicsBody?.friction = 0
+                bubble.physicsBody?.restitution = 1
+                bubble.physicsBody?.linearDamping = 0
                 bubble.physicsBody?.angularDamping = 0
-                bubble.physicsBody?.categoryBitMask = BubbleCategory
+//                bubble.physicsBody?.categoryBitMask = BubbleCategory
 
-                self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.0)
-                bubble.physicsBody!.applyImpulse(CGVector(dx: 2.0, dy: -2.0))
+                self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+                bubble.physicsBody!.applyImpulse(CGVector(dx: 30, dy: -30.0))
 
                 // delegate
                 bubble.delegate = self
 
                 // TODO debug
-                print("total bubble: \(self.totalBubbles)")
+                print("total bubble: \(self.totalBubbles.value)")
             }
-//        }
-        // 1 second delay
-//        delay(1) {
-//        }
     }
 
     // update timer
