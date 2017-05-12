@@ -12,30 +12,30 @@ import GameplayKit
 
 class ScoreboardViewController: UITableViewController {
 
+    var scores: [String] = []
 
-    var fruits = ["Apple", "Apricot", "Banana", "Blueberry", "Cantaloupe", "Cherry",
-                  "Clementine", "Coconut", "Cranberry", "Fig", "Grape", "Grapefruit",
-                  "Kiwi fruit", "Lemon", "Lime", "Lychee", "Mandarine", "Mango",
-                  "Melon", "Nectarine", "Olive", "Orange", "Papaya", "Peach",
-                  "Pear", "Pineapple", "Raspberry", "Strawberry"]
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    }
+        if let scs = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+            for (key, value) in scs {
+                scores.append(key + ":\(value)")
+            }
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fruits.count
+        return scores.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
 
-        cell.textLabel?.text = fruits[indexPath.row]
+        cell.textLabel?.text = scores[indexPath.row]
 
         print(cell)
 

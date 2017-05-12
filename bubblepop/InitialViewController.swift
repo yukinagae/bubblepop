@@ -16,7 +16,7 @@ class InitialViewController: UIViewController {
         super.viewDidLoad()
 
         // user score dictionary
-        let scores: NSMutableDictionary = [:]
+        let scores: Dictionary<String, UInt32> = [:]
         UserDefaults.standard.set(scores, forKey: "scores")
     }
 

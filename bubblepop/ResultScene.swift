@@ -68,13 +68,30 @@ class ResultScene: SKScene {
             self.view?.presentScene(newScene)
         }
         if touchedNode.name == "Back" {
-            score = 0
             self.returnToMainMenu()
+            score = 0
         }
     }
 
     func returnToMainMenu(){
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
         self.viewController?.present(vc, animated: true, completion: nil)
+
+        let username = UserDefaults.standard.string(forKey: "username")
+
+        if var scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+            print("aloha")
+            print(score)
+            if let oldScore = scores[username!] {
+                print(oldScore)
+                if UInt32(score) > oldScore {
+                    scores[username!] = UInt32(score)
+                    UserDefaults.standard.set(scores, forKey: "scores")
+                }
+            } else {
+                scores[username!] = UInt32(score)
+                UserDefaults.standard.set(scores, forKey: "scores")
+            }
+        }
     }
 }
