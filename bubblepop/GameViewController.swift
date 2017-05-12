@@ -12,7 +12,7 @@ import GameplayKit
 
 weak var scoreLabel: UILabel!
 
-class GameViewController: UIViewController, ResultSceneDelegate {
+class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +36,11 @@ class GameViewController: UIViewController, ResultSceneDelegate {
         }
     }
 
-    func launchViewController() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
-        self.present(vc, animated: true, completion: nil)
-    }
+//    func launchViewController() {
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = mainStoryboard.instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
+//        self.present(vc, animated: true, completion: nil)
+//    }
 
 //    override var shouldAutorotate: Bool {
 //        return false
