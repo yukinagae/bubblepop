@@ -11,6 +11,10 @@ import SpriteKit
 // score
 var score = 0.0
 
+// physics category
+let BubbleCategory   : UInt32 = 0x1 << 0
+//let BorderCategory   : UInt32 = 0x1 << 1
+
 class Counter {
     private var queue = DispatchQueue(label: "your.queue.identifier")
     private (set) var value: Int = 0
@@ -39,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     let totalBubbles = Counter()
 
-//    var bubbles = [Bubble]() TODO may be better to check intersect
+    var bubbles = [Bubble]()
 
     private var queue = DispatchQueue(label: "my.queue.identifier")
 
@@ -62,8 +66,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // update previous color
         self.previousColor = color
 
-        self.totalBubbles.decrement()
-        self.addBubble()
+        // decrement total bubble count
+//        synced(self.totalBubbles) {
+            self.totalBubbles.decrement()
+            self.addBubble()
+//        }
     }
 
     func onRemoved() {
@@ -92,10 +99,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         self.backgroundColor = SKColor.white
 
-        // frame
+//         frame
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         borderBody.friction = 0
         self.physicsBody = borderBody
+//        self.physicsBody?.categoryBitMask = BorderCategory
 
         physicsWorld.contactDelegate = self
 
@@ -121,6 +129,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 //        objc_sync_exit(lock)
 //    }
 
+
+// TODO uncomment later
     override func sceneDidLoad() {
         super.sceneDidLoad()
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
@@ -155,7 +165,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // do nothing when already maximum bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
 
-            // TODO debug
             print(maxBubbles)
             print(self.totalBubbles.value)
 
@@ -189,6 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 bubble.physicsBody?.restitution = 1
                 bubble.physicsBody?.linearDamping = 0
                 bubble.physicsBody?.angularDamping = 0
+//                bubble.physicsBody?.categoryBitMask = BubbleCategory
 
                 self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
                 bubble.physicsBody!.applyImpulse(CGVector(dx: 10, dy: -10.0))
