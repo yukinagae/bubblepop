@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B61715E01EC5935200DACA45 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61715DF1EC5935200DACA45 /* InitialViewController.swift */; };
 		B6B0BB241EBF25220065BCD9 /* ColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B0BB231EBF25220065BCD9 /* ColorType.swift */; };
 		B6C80F161EBD915000E0C6A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F151EBD915000E0C6A0 /* AppDelegate.swift */; };
 		B6C80F1C1EBD915000E0C6A0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F1B1EBD915000E0C6A0 /* GameScene.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B61715DF1EC5935200DACA45 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		B6B0BB231EBF25220065BCD9 /* ColorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorType.swift; sourceTree = "<group>"; };
 		B6C80F121EBD915000E0C6A0 /* bubblepop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubblepop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C80F151EBD915000E0C6A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				B6C80F1B1EBD915000E0C6A0 /* GameScene.swift */,
 				B6C80F311EBDB9F600E0C6A0 /* ResultScene.swift */,
 				B6C80F1D1EBD915000E0C6A0 /* GameViewController.swift */,
+				B61715DF1EC5935200DACA45 /* InitialViewController.swift */,
 				B6C80F1F1EBD915000E0C6A0 /* Main.storyboard */,
 				B6C80F221EBD915000E0C6A0 /* Assets.xcassets */,
 				B6C80F241EBD915000E0C6A0 /* LaunchScreen.storyboard */,
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C80F1C1EBD915000E0C6A0 /* GameScene.swift in Sources */,
+				B61715E01EC5935200DACA45 /* InitialViewController.swift in Sources */,
 				B6B0BB241EBF25220065BCD9 /* ColorType.swift in Sources */,
 				B6C80F321EBDB9F600E0C6A0 /* ResultScene.swift in Sources */,
 				B6C80F1E1EBD915000E0C6A0 /* GameViewController.swift in Sources */,

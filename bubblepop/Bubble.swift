@@ -40,9 +40,9 @@ class Bubble: SKSpriteNode {
 //    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
+//        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
         let actionDone = SKAction.removeFromParent()
-        self.run(SKAction.sequence([actionFadeOut, actionDone]))
+        self.run(SKAction.sequence([actionDone]))
 
         // delegate
         self.delegate?.onTouch(color: myColor)

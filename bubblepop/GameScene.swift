@@ -43,6 +43,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     let totalBubbles = Counter()
 
+    var bubbles = [Bubble]()
+
     private var queue = DispatchQueue(label: "my.queue.identifier")
 
     // delegated method from bubble
@@ -177,9 +179,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
                 // TODO should be random x
                 let w: UInt32 = UInt32(self.size.width)
+                let h: UInt32 = UInt32(self.size.height)
                 let randomX = self.random(max: w)
-                let point = CGPoint(x: CGFloat(randomX), y: self.size.height)
+                let randomY = self.random(max: h)
+                let point = CGPoint(x: CGFloat(randomX), y: CGFloat(randomY))
                 bubble.position = point
+
                 self.addChild(bubble)
 
                 // physics

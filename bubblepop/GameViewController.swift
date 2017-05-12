@@ -16,6 +16,11 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // settings
+        // TODO can be modified in settings controller
+        UserDefaults.standard.set(10, forKey: "GameTime")
+        UserDefaults.standard.set(15, forKey: "MaxBubbles")
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
@@ -29,11 +34,6 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
-
-        // settings
-        // TODO can be modified in settings controller
-        UserDefaults.standard.set(3, forKey: "GameTime")
-        UserDefaults.standard.set(15, forKey: "MaxBubbles")
     }
 
 //    override var shouldAutorotate: Bool {
