@@ -10,6 +10,8 @@ import SpriteKit
 
 class ResultScene: SKScene {
 
+    var viewController: UIViewController?
+
     override func didMove(to view: SKView) {
 
         self.backgroundColor = SKColor.white
@@ -60,23 +62,19 @@ class ResultScene: SKScene {
         let touchedNode = self.atPoint(location)
 
         if touchedNode.name == "ReStart" {
-
-            // TODO
             score = 0
-
             let newScene = GameScene(size: self.scene!.size)
             newScene.scaleMode = .aspectFill
             self.view?.presentScene(newScene)
         }
-
         if touchedNode.name == "Back" {
-
-            // TODO
             score = 0
-
-//            let newScene = GameScene(size: self.scene!.size)
-//            newScene.scaleMode = .aspectFill
-//            self.view?.presentScene(newScene)
+            self.returnToMainMenu()
         }
+    }
+
+    func returnToMainMenu(){
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
+        self.viewController?.present(vc, animated: true, completion: nil)
     }
 }

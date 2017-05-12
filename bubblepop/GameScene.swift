@@ -34,6 +34,8 @@ class Counter {
 
 class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
+    var viewController: UIViewController?
+
     var counter = UserDefaults.standard.integer(forKey: "GameTime")
 
     let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -214,12 +216,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     // update timer
     func updateCounter() {
         if counter >= 0 {
-            self.timerLabel.text = counter.description
+            self.timerLabel.text = "\(counter)"
             counter -= 1
         } else {
             // after the end of the world
             let newScene = ResultScene(size: self.scene!.size)
             newScene.scaleMode = .aspectFill
+            newScene.viewController = self.viewController
             self.view?.presentScene(newScene)
         }
     }
