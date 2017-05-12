@@ -12,15 +12,23 @@ import GameplayKit
 
 class InitialViewController: UIViewController {
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // user score dictionary
+        let scores: NSMutableDictionary = [:]
+        UserDefaults.standard.set(scores, forKey: "scores")
+    }
+
+
+    @IBOutlet weak var yourname: UILabel!
 
     @IBOutlet weak var username: UITextField!
 
     @IBAction func entered(_ sender: Any) {
         if let name = username.text {
-            print(name)
+            yourname.text = name
+            UserDefaults.standard.set(name, forKey: "username")
         }
     }
 
