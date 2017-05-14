@@ -101,11 +101,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         self.backgroundColor = SKColor.white
 
-//         frame
+        // frame
         let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         borderBody.friction = 0
         self.physicsBody = borderBody
-//        self.physicsBody?.categoryBitMask = BorderCategory
 
         physicsWorld.contactDelegate = self
 
@@ -215,15 +214,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     // update timer
     func updateCounter() {
-        if counter > 0 {
+        if counter >= 0 {
             self.timerLabel.text = "Time: \(self.counter)"
             counter -= 1
         } else {
-            // after the end of the world
-            let newScene = ResultScene(size: self.scene!.size)
-            newScene.scaleMode = .aspectFill
-            newScene.viewController = self.viewController
-            self.view?.presentScene(newScene)
+
+            // store high score
+            let username = UserDefaults.standard.string(forKey: "username")
+
+            if var scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+                print(score)
+                if let oldScore = scores[username!] {
+                    print(oldScore)
+                    if UInt32(score) > oldScore {
+                        scores[username!] = UInt32(score)
+                        UserDefaults.standard.set(scores, forKey: "scores")
+                    }
+                } else {
+                    scores[username!] = UInt32(score)
+                    UserDefaults.standard.set(scores, forKey: "scores")
+                }
+            }
+
+
+            // after the end of the game
+            let alertController = UIAlertController(title: "Game Over", message: "Score: \(score)", preferredStyle: .alert)
+
+            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoreboardViewController") as! ScoreboardViewController
+                self.viewController?.present(vc, animated: true, completion: nil)
+            }
+            alertController.addAction(OKAction)
+
+            self.viewController?.present(alertController, animated: true, completion: nil)
         }
     }
 }

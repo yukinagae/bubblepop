@@ -16,8 +16,11 @@ class InitialViewController: UIViewController {
         super.viewDidLoad()
 
         // user score dictionary
-        let scores: Dictionary<String, UInt32> = [:]
-        UserDefaults.standard.set(scores, forKey: "scores")
+        if let _ = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+        } else {
+            let scores: Dictionary<String, UInt32> = [:]
+            UserDefaults.standard.set(scores, forKey: "scores")
+        }
 
         // username
         if let name = UserDefaults.standard.string(forKey: "username") {

@@ -103,7 +103,7 @@
         <!--Scoreboard-->
         <scene sceneID="lCy-mF-i9M">
             <objects>
-                <tableViewController id="nKD-1c-Jcm" customClass="ScoreboardViewController" customModule="bubblepop" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ScoreboardViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nKD-1c-Jcm" customClass="ScoreboardViewController" customModule="bubblepop" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="LtF-pZ-KHr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,6 +247,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vK2-jV-2rf"/>
+        <segue reference="TKx-GB-R8x"/>
     </inferredMetricsTieBreakers>
 </document>
