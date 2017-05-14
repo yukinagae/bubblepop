@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     var counter = UserDefaults.standard.integer(forKey: "GameTime")
 
-    let timerLabel = SKLabelNode(fontNamed:"Chalkduster")
+    let timerLabel = SKLabelNode(fontNamed:"Copperplate")
     let scoreLabel = SKLabelNode(fontNamed: "Copperplate")
 
     var previousColor: ColorType?
@@ -86,10 +86,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     override func didMove(to view: SKView) {
 
         // count down timer
-        timerLabel.text = counter.description
+        timerLabel.text = "Time: \(self.counter)"
         timerLabel.fontSize = 48;
         timerLabel.fontColor = SKColor.black
-        timerLabel.position = CGPoint(x: self.size.width/2, y: 30);
+        timerLabel.position = CGPoint(x: 100, y: self.size.height - 50);
         self.addChild(timerLabel)
 
         // score
@@ -216,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     // update timer
     func updateCounter() {
         if counter > 0 {
-            self.timerLabel.text = "\(counter)"
+            self.timerLabel.text = "Time: \(self.counter)"
             counter -= 1
         } else {
             // after the end of the world
