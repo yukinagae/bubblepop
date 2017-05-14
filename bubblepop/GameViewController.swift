@@ -16,11 +16,6 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // settings
-        // TODO can be modified in settings controller
-//        UserDefaults.standard.set(10, forKey: "GameTime")
-//        UserDefaults.standard.set(15, forKey: "MaxBubbles")
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
@@ -38,30 +33,11 @@ class GameViewController: UIViewController {
         }
     }
 
-//    func launchViewController() {
-//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = mainStoryboard.instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
-//        self.present(vc, animated: true, completion: nil)
-//    }
+    override var shouldAutorotate: Bool {
+        return true
+    }
 
-//    override var shouldAutorotate: Bool {
-//        return false
-//    }
-
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        if UIDevice.current.userInterfaceIdiom == .phone {
-//            return .allButUpsideDown
-//        } else {
-//            return .all
-//        }
-//    }
-
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Release any cached data, images, etc that aren't in use.
-//    }
-
-//    override var prefersStatusBarHidden: Bool {
-//        return true
-//    }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
 }
