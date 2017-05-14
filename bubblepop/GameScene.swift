@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AudioToolbox
 
 // score
 var score: UInt32 = 0
@@ -323,6 +324,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
             if alert {
                 return
+            }
+
+            if !alert {
+                // vibration should be cool
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             }
 
 
