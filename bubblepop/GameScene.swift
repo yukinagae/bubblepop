@@ -124,17 +124,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         // count down timer
         timerLabel.text = "Time: \(self.counter)"
-        timerLabel.fontSize = 48;
+        timerLabel.fontSize = 18;
         timerLabel.fontColor = SKColor.black
-        timerLabel.position = CGPoint(x: self.size.width/2, y: self.size.height - 50);
+        timerLabel.position = CGPoint(x: 50, y: self.size.height-50);
         self.addChild(timerLabel)
 
         // score
         scoreLabel.text = "Score: \(score)"
-        scoreLabel.fontSize = 48;
+        scoreLabel.fontSize = 18;
         scoreLabel.fontColor = SKColor.black
-        scoreLabel.position = CGPoint(x: self.size.width/2, y: 50);
+        scoreLabel.position = CGPoint(x: self.size.width/2-30, y: self.size.height-50);
         self.addChild(scoreLabel)
+
+        // highest score
+        if let scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+            let highscore = scores.values.max()
+            let highscoreLabel = SKLabelNode(fontNamed:"Copperplate")
+            highscoreLabel.text = "High Score: \(highscore!)"
+            highscoreLabel.fontSize = 18;
+            highscoreLabel.fontColor = SKColor.black
+            highscoreLabel.position = CGPoint(x: self.size.width-70, y: self.size.height-50);
+            self.addChild(highscoreLabel)
+        }
 
         self.backgroundColor = SKColor.white
 
