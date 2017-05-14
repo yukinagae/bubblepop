@@ -10,7 +10,7 @@ import SpriteKit
 
 protocol BubbleTouchedDelegate : class {
 
-    func onTouch(color: ColorType) -> Void
+    func onTouch(bubble: Bubble) -> Void
     func onRemoved() -> Void
 }
 
@@ -20,8 +20,11 @@ class Bubble: SKSpriteNode {
 
     let myColor: ColorType
 
+    let skcolor: SKColor
+
     init(color: ColorType) {
         self.myColor = color
+        self.skcolor = color.skcolor
         let texture = SKTexture(imageNamed: color.name)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.isUserInteractionEnabled = true
@@ -45,6 +48,6 @@ class Bubble: SKSpriteNode {
         self.run(SKAction.sequence([actionDone]))
 
         // delegate
-        self.delegate?.onTouch(color: myColor)
+        self.delegate?.onTouch(bubble: self)
     }
 }

@@ -52,16 +52,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     private var queue = DispatchQueue(label: "my.queue.identifier")
 
     // delegated method from bubble
-    func onTouch(color: ColorType) {
+    func onTouch(bubble: Bubble) {
+
+        let color = bubble.myColor
+
+        var combo = false
+        var point = color.point
 
         if let pColor = previousColor {
             if pColor.name == color.name {
-                score += UInt32(round(Double(color.point) * 1.5))
+                point = UInt32(ceil(Double(color.point) * 1.5))
+                score += point
+                combo = true
             } else {
-                score += color.point
+                score += point
             }
         } else {
-            score += color.point
+            score += point
+        }
+
+        // TODO debug
+        print("point:\(point)")
+
+        // touched score
+        let touchedScore = SKLabelNode(fontNamed:"Copperplate")
+        touchedScore.text = "+\(point)"
+        touchedScore.fontSize = 30;
+        touchedScore.fontColor = bubble.skcolor
+        touchedScore.position = CGPoint(x: bubble.position.x, y: bubble.position.y);
+        self.addChild(touchedScore)
+
+        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let actionDone = SKAction.removeFromParent()
+        touchedScore.run(SKAction.sequence([actionFadeOut, actionDone]))
+
+        // combo label
+        if combo {
+            let comboLabel = SKLabelNode(fontNamed:"Copperplate")
+            comboLabel.text = "1.5x Combo!"
+            comboLabel.fontSize = 30;
+            comboLabel.fontColor = bubble.skcolor
+            comboLabel.position = CGPoint(x: bubble.position.x-10, y: bubble.position.y+20);
+            self.addChild(comboLabel)
+            comboLabel.run(SKAction.sequence([actionFadeOut, actionDone]))
         }
 
         // update score label text
@@ -86,6 +119,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     }
 
     override func didMove(to view: SKView) {
+
+        score = 0
 
         // count down timer
         timerLabel.text = "Time: \(self.counter)"
