@@ -215,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     // update timer
     func updateCounter() {
-        if counter >= 0 {
+        if counter > 0 {
             self.timerLabel.text = "\(counter)"
             counter -= 1
         } else {
