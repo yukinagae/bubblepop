@@ -8,7 +8,7 @@
 
 struct ColorType {
     var name        : String // name (should be equal to image name)
-    var point       : Double    // points
+    var point       : UInt32    // points
     var probability : UInt32    // %
 }
 

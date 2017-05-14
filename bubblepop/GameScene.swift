@@ -9,7 +9,7 @@
 import SpriteKit
 
 // score
-var score = 0.0
+var score: UInt32 = 0
 
 // physics category
 let BubbleCategory   : UInt32 = 0x1 << 0
@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         if let pColor = previousColor {
             if pColor.name == color.name {
-                score += color.point * 1.5
+                score += UInt32(round(Double(color.point) * 1.5))
             } else {
                 score += color.point
             }
@@ -63,7 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         }
 
         // update score label text
-        scoreLabel.text = score.description
+        scoreLabel.text = "Score: \(score)"
 
         // update previous color
         self.previousColor = color
@@ -89,14 +89,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         timerLabel.text = "Time: \(self.counter)"
         timerLabel.fontSize = 48;
         timerLabel.fontColor = SKColor.black
-        timerLabel.position = CGPoint(x: 100, y: self.size.height - 50);
+        timerLabel.position = CGPoint(x: self.size.width/2, y: self.size.height - 50);
         self.addChild(timerLabel)
 
         // score
-        scoreLabel.text = score.description
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 48;
         scoreLabel.fontColor = SKColor.black
-        scoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        scoreLabel.position = CGPoint(x: self.size.width/2, y: 50);
         self.addChild(scoreLabel)
 
         self.backgroundColor = SKColor.white

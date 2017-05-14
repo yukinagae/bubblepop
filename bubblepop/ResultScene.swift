@@ -80,7 +80,6 @@ class ResultScene: SKScene {
         let username = UserDefaults.standard.string(forKey: "username")
 
         if var scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
-            print("aloha")
             print(score)
             if let oldScore = scores[username!] {
                 print(oldScore)
