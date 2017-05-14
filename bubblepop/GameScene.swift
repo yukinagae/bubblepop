@@ -36,6 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     var viewController: UIViewController?
 
+    var alert = false
+
     var counter = UserDefaults.standard.integer(forKey: "GameTime")
 
     let timerLabel = SKLabelNode(fontNamed:"Copperplate")
@@ -166,6 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // do nothing when already maximum bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
 
+            // TODO debug
             print(maxBubbles)
             print(self.totalBubbles.value)
 
@@ -191,6 +194,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
                 self.addChild(bubble)
 
+                //
+                self.bubbles.append(bubble)
+
                 // physics
                 bubble.physicsBody = SKPhysicsBody(circleOfRadius: max(bubble.size.width / 2, bubble.size.height / 2))
                 bubble.physicsBody?.allowsRotation = false
@@ -209,6 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
                 // TODO debug
                 print("total bubble: \(self.totalBubbles.value)")
+                print("total bubbles actual: \(self.bubbles.count)")
             }
     }
 
@@ -236,6 +243,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 }
             }
 
+            if alert {
+                return
+            }
+
 
             // after the end of the game
             let alertController = UIAlertController(title: "Game Over", message: "Score: \(score)", preferredStyle: .alert)
@@ -243,10 +254,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoreboardViewController") as! ScoreboardViewController
                 self.viewController?.present(vc, animated: true, completion: nil)
+                return
             }
             alertController.addAction(OKAction)
 
             self.viewController?.present(alertController, animated: true, completion: nil)
+
+            alert = true
         }
     }
 }
