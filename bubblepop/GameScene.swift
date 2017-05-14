@@ -162,6 +162,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         }
     }
 
+    func removeBubble() {
+
+        if self.bubbles.isEmpty {
+            return
+        }
+
+        let length = self.bubbles.count
+
+        let index = Int(self.random(max: UInt32(length-1)))
+
+
+
+        let bubble = self.bubbles.remove(at: index)
+
+        bubble.removeFromParent()
+
+        self.totalBubbles.decrement()
+    }
+
     // add bubble
     func addBubble() {
 
@@ -194,7 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
                 self.addChild(bubble)
 
-                //
+                // add child bubbles
                 self.bubbles.append(bubble)
 
                 // physics
@@ -224,6 +243,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         if counter >= 0 {
             self.timerLabel.text = "Time: \(self.counter)"
             counter -= 1
+
+            // remove random 3 bubbles
+            for _ in 0..<3 {
+                print("removed!")
+                self.removeBubble()
+            }
+
+            // add random 3 bubbles
+            for _ in 0..<3 {
+                print("add!")
+                self.addBubble()
+            }
+
         } else {
 
             // store high score
