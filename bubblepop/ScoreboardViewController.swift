@@ -37,8 +37,6 @@ class ScoreboardViewController: UITableViewController {
 
         cell.textLabel?.text = scores[indexPath.row]
 
-        print(cell)
-
         return cell
     }
 
