@@ -151,8 +151,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         physicsWorld.contactDelegate = self
 
         // max bubbles
-        let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
+        var maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
         print(maxBubbles)
+        if maxBubbles == 0 {
+            maxBubbles = 15
+        }
         for _ in 1...maxBubbles {
             self.queue.sync {
                 self.addBubble()
