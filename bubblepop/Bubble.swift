@@ -11,7 +11,6 @@ import SpriteKit
 protocol BubbleTouchedDelegate : class {
 
     func onTouch(bubble: Bubble) -> Void
-    func onRemoved() -> Void
 }
 
 class Bubble: SKSpriteNode {
@@ -21,6 +20,8 @@ class Bubble: SKSpriteNode {
     let myColor: ColorType
 
     let skcolor: SKColor
+
+    var touched = false
 
     init(color: ColorType) {
         self.myColor = color
@@ -34,15 +35,10 @@ class Bubble: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    func disappear() {
-//        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
-//        let actionDone = SKAction.removeFromParent()
-//        self.run(SKAction.sequence([actionFadeOut, actionDone]))
-//
-//        self.delegate?.onRemoved()
-//    }
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        self.touched = true
+
 //        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
         let actionDone = SKAction.removeFromParent()
         self.run(SKAction.sequence([actionDone]))

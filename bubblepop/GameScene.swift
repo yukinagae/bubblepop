@@ -111,14 +111,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 //        }
     }
 
-    func onRemoved() {
-        self.queue.sync {
-            self.totalBubbles.decrement()
-            print(self.totalBubbles.value)
-            self.addBubble()
-        }
-    }
-
     override func didMove(to view: SKView) {
 
         score = 0
@@ -209,23 +201,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         }
     }
 
-    func removeBubble() {
+    func removeBubble() -> Bool {
 
         if self.bubbles.isEmpty {
-            return
+            return true
         }
 
         let length = self.bubbles.count
 
         let index = Int(self.random(max: UInt32(length-1)))
 
+        let bubble = self.bubbles[index]
 
+        if bubble.touched {
+            return false
+        } else {
+            self.bubbles.remove(at: index)
 
-        let bubble = self.bubbles.remove(at: index)
+            bubble.removeFromParent()
 
-        bubble.removeFromParent()
-
-        self.totalBubbles.decrement()
+            self.totalBubbles.decrement()
+            
+            return true
+        }
     }
 
     // add bubble
@@ -292,9 +290,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             counter -= 1
 
             // remove random 3 bubbles
-            for _ in 0..<3 {
-                print("removed!")
-                self.removeBubble()
+            var removedCount = 0
+            while(removedCount < 2) {
+                let result = self.removeBubble()
+                if result {
+                    print("removed!")
+                    removedCount += 1
+                }
             }
 
             // add random 3 bubbles
