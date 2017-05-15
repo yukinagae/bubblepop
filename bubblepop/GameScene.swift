@@ -163,20 +163,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         }
     }
 
-    // TODO may be better to use timer
-//    func delay(_ delay:Double, closure:@escaping ()->()) {
-//        DispatchQueue.main.asyncAfter(
-//            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-//    }
-
-//    func synced(_ lock: Any, closure: () -> ()) {
-//        objc_sync_enter(lock)
-//        closure()
-//        objc_sync_exit(lock)
-//    }
-
-
-// TODO uncomment later
     override func sceneDidLoad() {
         super.sceneDidLoad()
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
