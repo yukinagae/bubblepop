@@ -10,8 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-weak var scoreLabel: UILabel!
-
+// start and end game
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -19,17 +18,17 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
-            // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
 
-            scene.viewController = self
-                
-                // Present the scene
-            view.presentScene(scene)
-            
+            view.presentScene(scene) // display scene
+
             view.ignoresSiblingOrder = true
             view.showsFPS = false
             view.showsNodeCount = false
+
+            // set self and it will be used to display other controllers from game scene
+            // this can be implemented in a different way
+            scene.viewController = self
         }
     }
 

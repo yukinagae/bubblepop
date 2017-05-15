@@ -8,13 +8,16 @@
 
 import SpriteKit
 
+// color type
 struct ColorType {
-    var skcolor     : SKColor // color
+    var skcolor     : SKColor // colour
     var name        : String  // name (should be equal to image name)
     var point       : UInt32  // points
     var probability : UInt32  // %
 }
 
+// all the colours you can use in this game
+// you can add more colours if you want
 enum ColorEnum {
     static let Red   = ColorType(skcolor: SKColor.red,    name: "red",   point: 1,  probability: 40)  // 40% (1...40)
     static let Pink  = ColorType(skcolor: SKColor.purple, name: "pink",  point: 2,  probability: 70)  // 30% (41...70)
