@@ -15,6 +15,7 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var yourname: UILabel!
     @IBOutlet weak var username: UITextField!
 
+    // default setting
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +33,18 @@ class InitialViewController: UIViewController {
             // default user for lazy people who don't want to enter user names :)
             UserDefaults.standard.set("default user", forKey: "username")
             self.yourname.text = "default user"
+        }
+
+        // max bubbles
+        let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
+        if maxBubbles == 0 {
+            UserDefaults.standard.set(15, forKey: "MaxBubbles")
+        }
+
+        // game time
+        let gameTime = UserDefaults.standard.integer(forKey: "GameTime")
+        if gameTime == 0 {
+            UserDefaults.standard.set(60, forKey: "GameTime")
         }
     }
 
