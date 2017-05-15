@@ -41,6 +41,9 @@ class InitialViewController: UIViewController {
         if let name = username.text {
             self.yourname.text = name
             UserDefaults.standard.set(name, forKey: "username")
+
+            // TODO unfocus
+            username.resignFirstResponder()
         }
     }
 
