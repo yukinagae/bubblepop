@@ -131,13 +131,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         // highest score
         if let scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
-            let highscore = scores.values.max()
-            let highscoreLabel = SKLabelNode(fontNamed:"Copperplate")
-            highscoreLabel.text = "High Score: \(highscore!)"
-            highscoreLabel.fontSize = 18;
-            highscoreLabel.fontColor = SKColor.black
-            highscoreLabel.position = CGPoint(x: self.size.width-70, y: self.size.height-50);
-            self.addChild(highscoreLabel)
+            if let highscore = scores.values.max() {
+                let highscoreLabel = SKLabelNode(fontNamed:"Copperplate")
+                highscoreLabel.text = "High Score: \(highscore)"
+                highscoreLabel.fontSize = 18;
+                highscoreLabel.fontColor = SKColor.black
+                highscoreLabel.position = CGPoint(x: self.size.width-70, y: self.size.height-50);
+                self.addChild(highscoreLabel)
+            }
         }
 
         self.backgroundColor = SKColor.white
