@@ -12,27 +12,7 @@ import AudioToolbox
 // score
 var score: UInt32 = 0
 
-// physics category
-let BubbleCategory   : UInt32 = 0x1 << 0
-//let BorderCategory   : UInt32 = 0x1 << 1
-
-class Counter {
-    private var queue = DispatchQueue(label: "your.queue.identifier")
-    private (set) var value: Int = 0
-
-    func increment() {
-        queue.sync {
-            value += 1
-        }
-    }
-
-    func decrement() {
-        queue.sync {
-            value -= 1
-        }
-    }
-}
-
+// this class is all about this game
 class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
     var viewController: UIViewController?
@@ -45,26 +25,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     let scoreLabel = SKLabelNode(fontNamed: "Copperplate")
 
     var previousColor: ColorType?
-
     let totalBubbles = Counter()
-
     var bubbles = [Bubble]()
-
-    private var queue = DispatchQueue(label: "my.queue.identifier")
+    // TODO private var queue = DispatchQueue(label: "bubble.queue.identifier")
 
     // delegated method from bubble
     func onTouch(bubble: Bubble) {
 
         let color = bubble.myColor
-
-        var combo = false
         var point = color.point
 
         if let pColor = previousColor {
             if pColor.name == color.name {
-                point = UInt32(ceil(Double(color.point) * 1.5))
+                point = UInt32(ceil(Double(color.point) * 1.5)) // combo point
                 score += point
-                combo = true
+                // show combo label
+                self.showCombo(bubble: bubble)
             } else {
                 score += point
             }
@@ -72,9 +48,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             score += point
         }
 
-        // TODO debug
-        print("point:\(point)")
+        self.showPoint(point: point, bubble: bubble)
 
+        // update score label text
+        scoreLabel.text = "Score: \(score)"
+
+        // update previous color
+        self.previousColor = color
+
+        // TODO i think total bubbles can be replaced to just count self.bubbles
+        self.totalBubbles.decrement()
+        self.addBubble()
+    }
+
+    func showPoint(point: UInt32, bubble: Bubble) {
         // touched score
         let touchedScore = SKLabelNode(fontNamed:"Copperplate")
         touchedScore.text = "+\(point)"
@@ -86,29 +73,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
         let actionDone = SKAction.removeFromParent()
         touchedScore.run(SKAction.sequence([actionFadeOut, actionDone]))
+    }
 
-        // combo label
-        if combo {
-            let comboLabel = SKLabelNode(fontNamed:"Copperplate")
-            comboLabel.text = "1.5x Combo!"
-            comboLabel.fontSize = 30;
-            comboLabel.fontColor = bubble.skcolor
-            comboLabel.position = CGPoint(x: bubble.position.x-10, y: bubble.position.y+20);
-            self.addChild(comboLabel)
-            comboLabel.run(SKAction.sequence([actionFadeOut, actionDone]))
-        }
+    func showCombo(bubble: Bubble) {
+        let comboLabel = SKLabelNode(fontNamed:"Copperplate")
+        comboLabel.text = "1.5x Combo!"
+        comboLabel.fontSize = 30;
+        comboLabel.fontColor = bubble.skcolor
+        comboLabel.position = CGPoint(x: bubble.position.x-10, y: bubble.position.y+20);
+        self.addChild(comboLabel)
 
-        // update score label text
-        scoreLabel.text = "Score: \(score)"
-
-        // update previous color
-        self.previousColor = color
-
-        // decrement total bubble count
-//        synced(self.totalBubbles) {
-            self.totalBubbles.decrement()
-            self.addBubble()
-//        }
+        let actionFadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let actionDone = SKAction.removeFromParent()
+        comboLabel.run(SKAction.sequence([actionFadeOut, actionDone]))
     }
 
     override func didMove(to view: SKView) {
@@ -152,40 +129,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         // max bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
-        print(maxBubbles)
         for _ in 1...maxBubbles {
-            self.queue.sync {
-                self.addBubble()
-            }
+            self.addBubble()
         }
     }
 
     override func sceneDidLoad() {
         super.sceneDidLoad()
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-    }
-
-    func random(max: UInt32) -> UInt32 {
-        return arc4random_uniform(max)
-    }
-
-    func getRandomColor() -> ColorType {
-        let r = self.random(max: 100) // 0...99
-
-        // TODO debug
-        print("random value: \(r)")
-
-        if r < ColorEnum.Red.probability {
-            return ColorEnum.Red
-        } else if r < ColorEnum.Pink.probability {
-            return ColorEnum.Pink
-        } else if r < ColorEnum.Green.probability {
-            return ColorEnum.Green
-        } else if r < ColorEnum.Blue.probability {
-            return ColorEnum.Blue
-        } else {
-            return ColorEnum.Black
-        }
     }
 
     func removeBubble() -> Bool {
@@ -196,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
         let length = self.bubbles.count
 
-        let index = Int(self.random(max: UInt32(length-1)))
+        let index = Int(Util.random(max: UInt32(length-1)))
 
         let bubble = self.bubbles[index]
 
@@ -219,17 +170,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // do nothing when already maximum bubbles
         let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
 
-            // TODO debug
-            print(maxBubbles)
-            print(self.totalBubbles.value)
-
             if self.totalBubbles.value >= maxBubbles {
                 return
             } else {
                 // increment total bubble count
                 self.totalBubbles.increment()
                 
-                let color = self.getRandomColor()
+                let color = Util.getRandomColor()
                 let bubble = Bubble(color: color)
 
                 // size
@@ -238,8 +185,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 // TODO should be random x
                 let w: UInt32 = UInt32(self.size.width)
                 let h: UInt32 = UInt32(self.size.height)
-                let randomX = self.random(max: w)
-                let randomY = self.random(max: h)
+                let randomX = Util.random(max: w)
+                let randomY = Util.random(max: h)
                 let point = CGPoint(x: CGFloat(randomX), y: CGFloat(randomY))
                 bubble.position = point
 
@@ -256,17 +203,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 bubble.physicsBody?.restitution = 1
                 bubble.physicsBody?.linearDamping = 0
                 bubble.physicsBody?.angularDamping = 0
-//                bubble.physicsBody?.categoryBitMask = BubbleCategory
 
                 self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
                 bubble.physicsBody!.applyImpulse(CGVector(dx: 10, dy: -10.0))
 
                 // delegate
                 bubble.delegate = self
-
-                // TODO debug
-                print("total bubble: \(self.totalBubbles.value)")
-                print("total bubbles actual: \(self.bubbles.count)")
             }
     }
 
@@ -276,21 +218,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             self.timerLabel.text = "Time: \(self.counter)"
             counter -= 1
 
-            // remove random 3 bubbles
+            // TODO remove random 3 bubbles
             var removedCount = 0
             while(removedCount < 2) {
                 let result = self.removeBubble()
                 if result {
-                    // TODO debug
-                    print("removed!")
                     removedCount += 1
                 }
             }
 
-            // add random 3 bubbles
+            // TODO add random 3 bubbles
             for _ in 0..<3 {
-                // TODO debug
-                print("add!")
                 self.addBubble()
             }
 
@@ -300,9 +238,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             let username = UserDefaults.standard.string(forKey: "Username")
 
             if var scores = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
-                print(score)
                 if let oldScore = scores[username!] {
-                    print(oldScore)
                     if UInt32(score) > oldScore {
                         scores[username!] = UInt32(score)
                         UserDefaults.standard.set(scores, forKey: "Scores")

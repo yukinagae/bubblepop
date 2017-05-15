@@ -18,6 +18,8 @@
 		B6C80F231EBD915000E0C6A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F221EBD915000E0C6A0 /* Assets.xcassets */; };
 		B6C80F261EBD915000E0C6A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C80F241EBD915000E0C6A0 /* LaunchScreen.storyboard */; };
 		B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */; };
+		B6D203E21EC9CA7A006ABF24 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D203E11EC9CA7A006ABF24 /* Counter.swift */; };
+		B6D203E41EC9CB3F006ABF24 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D203E31EC9CB3F006ABF24 /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		B6C80F251EBD915000E0C6A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6C80F271EBD915000E0C6A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		B6D203E11EC9CA7A006ABF24 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		B6D203E31EC9CB3F006ABF24 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,12 +72,14 @@
 			children = (
 				B6C80F151EBD915000E0C6A0 /* AppDelegate.swift */,
 				B6C80F2D1EBD998B00E0C6A0 /* Bubble.swift */,
+				B6D203E11EC9CA7A006ABF24 /* Counter.swift */,
 				B6B0BB231EBF25220065BCD9 /* ColorType.swift */,
 				B6C80F1B1EBD915000E0C6A0 /* GameScene.swift */,
 				B6C80F1D1EBD915000E0C6A0 /* GameViewController.swift */,
 				B61715DF1EC5935200DACA45 /* InitialViewController.swift */,
 				B61715E11EC59D7900DACA45 /* SettingViewController.swift */,
 				B61715E31EC59D8700DACA45 /* ScoreboardViewController.swift */,
+				B6D203E31EC9CB3F006ABF24 /* Util.swift */,
 				B6C80F1F1EBD915000E0C6A0 /* Main.storyboard */,
 				B6C80F221EBD915000E0C6A0 /* Assets.xcassets */,
 				B6C80F241EBD915000E0C6A0 /* LaunchScreen.storyboard */,
@@ -160,7 +166,9 @@
 				B61715E01EC5935200DACA45 /* InitialViewController.swift in Sources */,
 				B6B0BB241EBF25220065BCD9 /* ColorType.swift in Sources */,
 				B61715E21EC59D7900DACA45 /* SettingViewController.swift in Sources */,
+				B6D203E21EC9CA7A006ABF24 /* Counter.swift in Sources */,
 				B6C80F1E1EBD915000E0C6A0 /* GameViewController.swift in Sources */,
+				B6D203E41EC9CB3F006ABF24 /* Util.swift in Sources */,
 				B6C80F161EBD915000E0C6A0 /* AppDelegate.swift in Sources */,
 				B6C80F2E1EBD998B00E0C6A0 /* Bubble.swift in Sources */,
 			);
