@@ -20,18 +20,18 @@ class InitialViewController: UIViewController {
         super.viewDidLoad()
 
         // user score dictionary
-        if let _ = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+        if let _ = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
         } else {
             let scores: Dictionary<String, UInt32> = [:]
-            UserDefaults.standard.set(scores, forKey: "scores")
+            UserDefaults.standard.set(scores, forKey: "Scores")
         }
 
         // username
-        if let name = UserDefaults.standard.string(forKey: "username") {
+        if let name = UserDefaults.standard.string(forKey: "Username") {
             self.yourname.text = name
         } else {
             // default user for lazy people who don't want to enter user names :)
-            UserDefaults.standard.set("default user", forKey: "username")
+            UserDefaults.standard.set("default user", forKey: "Username")
             self.yourname.text = "default user"
         }
 
@@ -51,7 +51,7 @@ class InitialViewController: UIViewController {
     @IBAction func entered(_ sender: Any) {
         if let name = username.text {
             self.yourname.text = name
-            UserDefaults.standard.set(name, forKey: "username")
+            UserDefaults.standard.set(name, forKey: "Username")
             username.resignFirstResponder()
         }
     }

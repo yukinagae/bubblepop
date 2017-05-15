@@ -130,7 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         self.addChild(scoreLabel)
 
         // highest score
-        if let scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+        if let scores = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
             if let highscore = scores.values.max() {
                 let highscoreLabel = SKLabelNode(fontNamed:"Copperplate")
                 highscoreLabel.text = "High Score: \(highscore)"
@@ -281,6 +281,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             while(removedCount < 2) {
                 let result = self.removeBubble()
                 if result {
+                    // TODO debug
                     print("removed!")
                     removedCount += 1
                 }
@@ -288,6 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
 
             // add random 3 bubbles
             for _ in 0..<3 {
+                // TODO debug
                 print("add!")
                 self.addBubble()
             }
@@ -295,19 +297,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         } else {
 
             // store high score
-            let username = UserDefaults.standard.string(forKey: "username")
+            let username = UserDefaults.standard.string(forKey: "Username")
 
-            if var scores = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+            if var scores = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
                 print(score)
                 if let oldScore = scores[username!] {
                     print(oldScore)
                     if UInt32(score) > oldScore {
                         scores[username!] = UInt32(score)
-                        UserDefaults.standard.set(scores, forKey: "scores")
+                        UserDefaults.standard.set(scores, forKey: "Scores")
                     }
                 } else {
                     scores[username!] = UInt32(score)
-                    UserDefaults.standard.set(scores, forKey: "scores")
+                    UserDefaults.standard.set(scores, forKey: "Scores")
                 }
             }
 

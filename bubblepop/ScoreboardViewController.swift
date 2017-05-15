@@ -21,7 +21,7 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        if let scs = UserDefaults.standard.object(forKey: "scores") as? Dictionary<String, UInt32> {
+        if let scs = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
             for (key, value) in scs {
                 scores.append(key + ":\(value)")
             }
