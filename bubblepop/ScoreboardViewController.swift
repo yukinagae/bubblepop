@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+// View Controller showing score board
 class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
@@ -21,26 +22,29 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
+        // convert stored score dictionary into score string array
+        // these will be displayed in table view
         if let scs = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
             for (key, value) in scs {
-                scores.append(key + ":\(value)")
+                self.scores.append(key + " \(value)")
             }
         }
     }
 
+    // only one section
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
+    // the number of the scores
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scores.count
+        return self.scores.count
     }
 
+    // set scores on each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        cell.textLabel?.text = scores[indexPath.row]
-
+        cell.textLabel?.text = self.scores[indexPath.row]
         return cell
     }
 
