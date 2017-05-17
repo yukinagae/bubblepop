@@ -25,7 +25,8 @@ class ScoreboardViewController: UIViewController, UITableViewDelegate, UITableVi
         // convert stored score dictionary into score string array
         // these will be displayed in table view
         if let scs = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
-            for (key, value) in scs {
+            // ordered from high to low scores
+            for (key, value) in (Array(scs).sorted {$0.1 > $1.1}) {
                 self.scores.append(key + " \(value)")
             }
         }
