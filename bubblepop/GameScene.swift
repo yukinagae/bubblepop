@@ -27,7 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
     var previousColor: ColorType?
     let totalBubbles = Counter()
     var bubbles = [Bubble]()
-    // TODO private var queue = DispatchQueue(label: "bubble.queue.identifier")
 
     // delegated method from bubble
     func onTouch(bubble: Bubble) {
@@ -56,7 +55,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         // update previous color
         self.previousColor = color
 
-        // TODO i think total bubbles can be replaced to just count self.bubbles
         self.totalBubbles.decrement()
         self.addBubble()
     }
@@ -182,7 +180,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 // size
                 bubble.size = CGSize(width: bubble.size.width/1.5, height: bubble.size.height/1.5)
 
-                // TODO should be random x
                 let w: UInt32 = UInt32(self.size.width)
                 let h: UInt32 = UInt32(self.size.height)
                 let randomX = Util.random(max: w)
@@ -218,17 +215,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
             self.timerLabel.text = "Time: \(self.counter)"
             counter -= 1
 
-            // TODO remove random 3 bubbles
-            var removedCount = 0
-            while(removedCount < 2) {
+            let maxBubbles = UserDefaults.standard.integer(forKey: "MaxBubbles")
+            var numberOfBubblesToBeRefreshed = Util.random(max: UInt32(maxBubbles)) / 2
+
+            // at least one bubble should be refreshed
+            if numberOfBubblesToBeRefreshed == 0 {
+                numberOfBubblesToBeRefreshed = 1
+            }
+
+            // remove random bubble(s)
+            var removedCount: UInt32 = 0
+            while(removedCount < numberOfBubblesToBeRefreshed) {
                 let result = self.removeBubble()
                 if result {
                     removedCount += 1
                 }
             }
 
-            // TODO add random 3 bubbles
-            for _ in 0..<3 {
+            // add random bubble(s)
+            for _ in 0...numberOfBubblesToBeRefreshed {
                 self.addBubble()
             }
 
