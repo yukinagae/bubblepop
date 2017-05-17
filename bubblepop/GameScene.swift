@@ -101,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 18;
         scoreLabel.fontColor = SKColor.black
-        scoreLabel.position = CGPoint(x: self.size.width/2-30, y: self.size.height-50);
+        scoreLabel.position = CGPoint(x: 50, y: 50);
         self.addChild(scoreLabel)
 
         // highest score
@@ -111,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
                 highscoreLabel.text = "Highest: \(highscore)"
                 highscoreLabel.fontSize = 18;
                 highscoreLabel.fontColor = SKColor.black
-                highscoreLabel.position = CGPoint(x: self.size.width-70, y: self.size.height-50);
+                highscoreLabel.position = CGPoint(x: self.size.width-100, y: 50);
                 self.addChild(highscoreLabel)
             }
         }
