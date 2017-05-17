@@ -110,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BubbleTouchedDelegate {
         if let scores = UserDefaults.standard.object(forKey: "Scores") as? Dictionary<String, UInt32> {
             if let highscore = scores.values.max() {
                 let highscoreLabel = SKLabelNode(fontNamed:"Copperplate")
-                highscoreLabel.text = "High Score: \(highscore)"
+                highscoreLabel.text = "Highest: \(highscore)"
                 highscoreLabel.fontSize = 18;
                 highscoreLabel.fontColor = SKColor.black
                 highscoreLabel.position = CGPoint(x: self.size.width-70, y: self.size.height-50);
