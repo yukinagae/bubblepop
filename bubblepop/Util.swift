@@ -8,18 +8,18 @@
 
 import Foundation
 
+// utility class
 class Util {
 
 
+    // get random value
     static func random(max: UInt32) -> UInt32 {
         return arc4random_uniform(max)
     }
 
+    // get random colour
     static func getRandomColor() -> ColorType {
         let r = Util.random(max: 100) // 0...99
-
-        // TODO debug
-        print("random value: \(r)")
 
         if r < ColorEnum.Red.probability {
             return ColorEnum.Red
